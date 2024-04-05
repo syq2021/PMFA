@@ -266,8 +266,8 @@ class embed_net(nn.Module):
             p = 3.0 #10.0 3.0
             x_pool = (torch.mean(x ** p, dim=-1) + 1e-12) ** (1 / p)
         else:
-            x_pool = self.maxpool_2(x)
-            # x_pool = self.avgpool(x)
+            #x_pool = self.maxpool_2(x)
+            x_pool = self.avgpool(x)
             x_pool = x_pool.view(x_pool.size(0), x_pool.size(1))
 
         x_pool1 = torch.cat((feature_vector,x_pool),dim=1)
