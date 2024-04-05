@@ -50,13 +50,13 @@ def compute_local_features(feature_maps, score_maps):
         score_map_i = score_maps[:, i, :, :].unsqueeze(1).repeat([1, fc, 1, 1])
         # feature_vector_i = torch.sum(score_map_i * feature_maps, [2, 3])
         feature_vector_i = score_map_i * feature_maps
-        #global avepool
-        feature_vector_i = nn.AdaptiveMaxPool2d((1,1,))(feature_vector_i)
-        # #gem pool
-        # b, c, h, w = feature_vector_i.shape
-        # feature_vector_i = feature_vector_i.view(b, c, -1)
-        # p = 3.0 #3.0 10.0
-        # feature_vector_i = (torch.mean(feature_vector_i ** p, dim=-1) + 1e-12) ** (1 / p)
+        ##global avepool
+        #feature_vector_i = nn.AdaptiveMaxPool2d((1,1,))(feature_vector_i)
+        #gem pool
+        b, c, h, w = feature_vector_i.shape
+        feature_vector_i = feature_vector_i.view(b, c, -1)
+        p = 3.0 #3.0 10.0
+        feature_vector_i = (torch.mean(feature_vector_i ** p, dim=-1) + 1e-12) ** (1 / p)
 
         feature_vector_i = torch.squeeze(feature_vector_i)
         feature_vector_i = torch.unsqueeze(feature_vector_i,2)
